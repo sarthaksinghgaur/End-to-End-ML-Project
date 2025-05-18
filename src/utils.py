@@ -26,11 +26,11 @@ def evaluate_models(X_train, y_train,X_test,y_test,models,param):
     try:
         report = {}
 
+        skf = StratifiedKFold(n_splits=3, shuffle=True, random_state=88)
+
         for i in range(len(list(models))):
             model = list(models.values())[i]
             para=param[list(models.keys())[i]]
-
-            skf = StratifiedKFold(n_splits=3, shuffle=True, random_state=42)
 
             rs = RandomizedSearchCV(
                 estimator=model,

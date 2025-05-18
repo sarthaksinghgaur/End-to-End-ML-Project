@@ -11,6 +11,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
+from sklearn.ensemble import VotingClassifier, StackingClassifier
 
 from imblearn.over_sampling import SMOTE
 
@@ -41,6 +42,12 @@ class ModelTrainer:
 
             smote = SMOTE(random_state=88)
             X_train, y_train = smote.fit_resample(X_train, y_train)
+
+            base_estimators = [
+                ('rf', RandomForestClassifier(n_estimators=100, random_state=42)),
+                ('xgb', XGBClassifier(eval_metric='logloss')),
+                ('cat', CatBoostClassifier(verbose=0))
+            ]
             
             models = {
                 "Random Forest": RandomForestClassifier(),
@@ -49,7 +56,13 @@ class ModelTrainer:
                 "Logistic Regression": LogisticRegression(max_iter=1000),
                 "XGBoost": XGBClassifier(eval_metric='logloss'),
                 "CatBoost": CatBoostClassifier(verbose=False),
-                "AdaBoost": AdaBoostClassifier()
+                "AdaBoost": AdaBoostClassifier(),
+                "Voting Classifier": VotingClassifier(estimators=base_estimators, voting='soft'),
+                "Stacking Classifier": StackingClassifier(
+                    estimators=base_estimators,
+                    final_estimator=LogisticRegression(),
+                    passthrough=True
+                )
             }
 
             params = {
@@ -92,7 +105,9 @@ class ModelTrainer:
                 "AdaBoost": {
                     'n_estimators': [50, 100, 200],
                     'learning_rate': [0.01, 0.1, 1.0]
-                }
+                },
+                "Voting Classifier": {},
+                "Stacking Classifier": {}
             }
 
             model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
