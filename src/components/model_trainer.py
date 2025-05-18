@@ -12,6 +12,8 @@ from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
 
+from imblearn.over_sampling import SMOTE
+
 from sklearn.metrics import f1_score
 
 from src.exception import CustomException
@@ -36,6 +38,10 @@ class ModelTrainer:
                 test_array[:,:-1],
                 test_array[:,-1]
             )
+
+            smote = SMOTE(random_state=88)
+            X_train, y_train = smote.fit_resample(X_train, y_train)
+            
             models = {
                 "Random Forest": RandomForestClassifier(),
                 "Decision Tree": DecisionTreeClassifier(),
