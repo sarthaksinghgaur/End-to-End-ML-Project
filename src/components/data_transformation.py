@@ -16,6 +16,9 @@ from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object
 
+import warnings
+warnings.filterwarnings("ignore")
+
 @dataclass
 class DataTransformationConfig:
     preprocessor_file_path = os.path.join('artifact', "preprocessor.pkl")
