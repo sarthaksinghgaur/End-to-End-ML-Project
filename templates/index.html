@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Prediction App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .header p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .content {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Diabetes Prediction Web App</h1>
+        <p>Powered by Machine Learning and Flask</p>
+    </div>
+
+    <div class="content">
+        <div class="card">
+            <h2>About This Project</h2>
+            <p>
+                This web application predicts whether a person is likely to be diabetic based on their health information. 
+                The model is trained on real-world medical data and leverages machine learning classifiers for accurate results.
+            </p>
+            <ul>
+                <li><strong>Tech Stack:</strong> Python, Flask, HTML/CSS, scikit-learn</li>
+                <li><strong>Features:</strong> Input validation, model pipeline, user-friendly interface</li>
+                <li><strong>Use Case:</strong> Educational, Screening Aid, Demonstration of Data Science skills</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Try the Prediction</h2>
+            <p>Click the button below to enter health details and get a diabetes prediction.</p>
+            <a href="/predictdata" class="btn">Go to Prediction Form</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; {{ current_year or "2025" }} | Developed by Sarthak Singh Gaur
+    </div>
+</body>
+</html>
