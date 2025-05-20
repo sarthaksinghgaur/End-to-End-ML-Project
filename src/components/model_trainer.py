@@ -15,7 +15,7 @@ from sklearn.ensemble import VotingClassifier, StackingClassifier
 
 from imblearn.over_sampling import SMOTE
 
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, precision_score, recall_score, roc_auc_score
 
 from src.exception import CustomException
 from src.logger import logging
@@ -110,18 +110,20 @@ class ModelTrainer:
                 "Stacking Classifier": {}
             }
 
-            model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
-                                             models=models,param=params)
+            model_report, trained_models = evaluate_models(
+                X_train=X_train,
+                y_train=y_train,
+                X_test=X_test,
+                y_test=y_test,
+                models=models,
+                param=params
+            )
             
-            ## To get best model score from dict
-            best_model_score = max(sorted(model_report.values()))
+            # Extract best model based on f1_score
+            best_model_name = max(model_report, key=lambda k: model_report[k]['f1_score'])
+            best_model_score = model_report[best_model_name]['f1_score']
 
-            ## To get best model name from dict
-
-            best_model_name = list(model_report.keys())[
-                list(model_report.values()).index(best_model_score)
-            ]
-            best_model = models[best_model_name]
+            best_model = trained_models[best_model_name]
             
             if best_model_score<0.6:
                 raise CustomException("No best model found")
@@ -132,9 +134,19 @@ class ModelTrainer:
                 obj=best_model
             )
 
-            predicted=best_model.predict(X_test)
+            y_probs = best_model.predict_proba(X_test)[:, 1]
+            predicted = best_model.predict(X_test)
 
             f1score = f1_score(y_test, predicted)
+            precision = precision_score(y_test, predicted)
+            recall = recall_score(y_test, predicted)
+            roc_auc = roc_auc_score(y_test, y_probs)
+
+            logging.info(f"F1 Score: {f1score}")
+            logging.info(f"Precision: {precision}")
+            logging.info(f"Recall: {recall}")
+            logging.info(f"ROC AUC: {roc_auc}")
+
             return f1score
             
         except Exception as e:
