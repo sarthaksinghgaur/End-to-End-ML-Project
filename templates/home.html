@@ -4,52 +4,134 @@
     <meta charset="UTF-8">
     <title>Diabetes Prediction</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 6px 12px rgba(255, 87, 34, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(270deg, #ff9a9e, #fad0c4, #ff9a9e, #fad0c4);
+            background-size: 800% 800%;
+            animation: gradientBackground 15s ease infinite;
             padding: 40px;
+            margin: 0;
         }
         .container {
             max-width: 600px;
             margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.15);
+            padding: 50px 45px;
+            border-radius: 16px;
+            box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.3), 0 8px 24px rgba(255, 87, 34, 0.25);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         h2 {
             text-align: center;
-            color: #444;
+            color: #ff5722;
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 2rem;
         }
         form label {
             display: block;
-            margin: 15px 0 5px;
+            margin: 18px 0 8px;
+            font-weight: 500;
+            color: #444444dd;
+            font-size: 1rem;
         }
         form input, form select {
             width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        form input:focus, form select:focus {
+            outline: none;
+            border-color: #ff5722;
+            box-shadow: 0 0 8px 3px rgba(255, 87, 34, 0.7);
+            animation: pulse 1.5s ease infinite;
         }
         .submit-btn {
-            background-color: #007bff;
+            background-color: #ff5722;
             color: white;
-            margin-top: 20px;
-            padding: 10px;
+            margin-top: 30px;
+            padding: 14px;
             width: 100%;
             border: none;
-            border-radius: 6px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.4s ease, transform 0.2s ease;
+            box-shadow: 0 6px 12px rgba(255, 87, 34, 0.4);
         }
         .submit-btn:hover {
-            background-color: #0056b3;
+            background-color: #e64a19;
+            animation: pulse 1s ease infinite;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(230, 74, 25, 0.6);
         }
         .result {
             text-align: center;
-            font-size: 18px;
-            margin-top: 25px;
-            color: green;
+            font-size: 1.25rem;
+            margin-top: 30px;
+            color: #2e7d32;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(46, 125, 50, 0.3);
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 2px solid #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
+            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2);
+            user-select: none;
+        }
+        .back-btn {
+            display: inline-block;
+            background-color: #607d8b;
+            color: white;
+            margin-top: 20px;
+            padding: 14px;
+            width: 100%;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.4s ease, transform 0.2s ease;
+            box-shadow: 0 6px 12px rgba(96, 125, 139, 0.4);
+            user-select: none;
+        }
+        .back-btn:hover {
+            background-color: #455a64;
+            animation: pulse 1s ease infinite;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(69, 90, 100, 0.6);
         }
     </style>
 </head>
@@ -109,6 +191,7 @@
         <div class="result">
             <strong>Prediction:</strong> {{ "Diabetic" if results == 1 else "Not Diabetic" }}
         </div>
+        <a href="/" class="back-btn">Back to Home</a>
         {% endif %}
     </div>
 </body>
