@@ -1,4 +1,4 @@
-# 🩺 Diabetes Prediction - End-to-End ML Project (Deployed on AWS Elastic Beanstalk)
+# Diabetes Prediction - ML Deployment on AWS Elastic Beanstalk
 
 This project is an **end-to-end machine learning pipeline** built to predict whether a person is diabetic or not based on various medical attributes. It includes **data preprocessing, feature engineering, model training with ensembling**, and **deployment on AWS Elastic Beanstalk** using a Flask web interface.
 
